@@ -25,19 +25,23 @@ export const addUser = (req, res) => {
 export const updateUser = (req, res) => {
   const { id } = req.params;
   const user = req.body;
-  db.query("UPDATE users SET ? WHERE id = ?", [user, id], (err, result) => {
-    if (err) {
-      console.error(err);
-      res.status(500).json({ error: err });
-    } else {
-      res.json({ message: "User updated successfully", user });
+  db.query(
+    "UPDATE users SET ? WHERE user_id = ?",
+    [user, id],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+        res.status(500).json({ error: err });
+      } else {
+        res.json({ message: "User updated successfully" });
+      }
     }
-  });
+  );
 };
 
 export const deleteUser = (req, res) => {
   const { id } = req.params;
-  db.query("DELETE FROM users WHERE id = ?", id, (err, result) => {
+  db.query("DELETE FROM users WHERE user_id = ?", id, (err, result) => {
     if (err) {
       console.error(err);
       res.status(500).json({ error: err });
